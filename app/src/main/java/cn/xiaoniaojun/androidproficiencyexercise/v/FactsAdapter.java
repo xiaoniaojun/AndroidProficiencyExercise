@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import cn.xiaoniaojun.androidproficiencyexercise.R;
@@ -56,6 +58,12 @@ public class FactsAdapter extends BaseAdapter {
         // 设置item内容
         holder.tvTitle.setText(data.getTitle());
         holder.tvContent.setText(data.getDescription());
+
+        Glide.with(mContext)
+                .load(data.getImageHref())
+                .centerCrop()
+                .crossFade()
+                .into(holder.imgv);
 
 
         return item;
