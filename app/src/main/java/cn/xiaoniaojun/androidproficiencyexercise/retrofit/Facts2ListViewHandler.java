@@ -2,27 +2,29 @@ package cn.xiaoniaojun.androidproficiencyexercise.retrofit;
 
 
 import android.app.Activity;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import cn.xiaoniaojun.androidproficiencyexercise.R;
 import cn.xiaoniaojun.androidproficiencyexercise.m.Facts;
-import cn.xiaoniaojun.androidproficiencyexercise.v.FactsAdapter;
+import cn.xiaoniaojun.androidproficiencyexercise.v.FactsAdapter4RecyclerView;
 
 public class Facts2ListViewHandler implements ICustomerFactsHandler<Facts> {
 
-    private ListView mListView;
+    private RecyclerView mRecyclerViewView;
     private Activity mActivity;
 
-    public Facts2ListViewHandler(ListView listView, Activity activity) {
-        mListView = listView;
+    public Facts2ListViewHandler(RecyclerView recyclerView, Activity activity) {
+        mRecyclerViewView = recyclerView;
         mActivity = activity;
     }
 
     @Override
     public void handle(Facts jsonObject) {
-        ((TextView) mActivity.findViewById(R.id.tv_main_title)).setText(jsonObject.getTitle());
-        mListView.setAdapter(new FactsAdapter(jsonObject, mActivity));
+        ((Toolbar) mActivity.findViewById(R.id.toolBar)).setTitle(jsonObject.getTitle());
+        mRecyclerViewView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRecyclerViewView.setAdapter(new FactsAdapter4RecyclerView(jsonObject.getRows()));
         mActivity = null;
     }
 }
